@@ -5,7 +5,17 @@
 </template>
 <script>
 export default {
-    name:"HomeComponent"
+    name:"HomeComponent",
+    // using the mounted lifecycle, if $user doesnt have the mounted value from the user, we redirect to other page
+      mounted(){
+      let user=localStorage.getItem("user-info");
+      if(!user){
+            this.$router.push({
+                 name:'signup' 
+                //  make sure this name is as same name as u defined in the router one
+             })
+      }
+  }
 }
 </script>
 <style>

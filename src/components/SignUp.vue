@@ -3,6 +3,7 @@
          <img class="logo" alt="Restaurant logo" src="../assets/logo.png">
         <h3>Sign Up</h3>
         <div class="register">
+            <!-- Use v-model to bind the inputs -->
 <input type="text" placeholder="Enter Name..." v-model="name">
 <input type="email" placeholder="Enter Email..." v-model="email">
 <input type="password" placeholder="Enter Password..." v-model="password">
@@ -27,7 +28,7 @@ export default {
     },
   methods:{
      async signUp(){
-          console.log("signing up",this.email, this.password,this.name);
+        //  Here i am using axios package to write the data in the json folder . make sure to run json-server before working this out
           let result=await axios.post("http://localhost:3000/users",{
               email:this.email,
               name:this.name,
@@ -35,9 +36,23 @@ export default {
           });
           console.warn(result);
           if(result.status==201){
-              alert("Sign Up done");
+            //   save data in the local storage takes key and value. user info is the key and result.data is value (checked from console.log)
+             localStorage.setItem("user-info",JSON.stringify(result.data));
+             this.$router.push({
+                 name:'home' 
+                //  make sure this name is as same name as u defined in the router one
+             })
           }
-          localStorage.setItem("user-info",JSON.stringify(result.data));
+         
+      }
+  },
+  mounted(){
+      let user=localStorage.getItem("user-info");
+      if(user){
+            this.$router.push({
+                 name:'home' 
+                //  make sure this name is as same name as u defined in the router one
+             })
       }
   }
 }
