@@ -6,7 +6,7 @@
 <script>
 export default {
     name:"HomeComponent",
-    // using the mounted lifecycle, if $user doesnt have the mounted value from the user, we redirect to other page
+    // using the mounted lifecycle, if $user doesnt have the mounted value from the user, we redirect to other page. that means if one isnt logged in, he cant access the whole webpage
       mounted(){
       let user=localStorage.getItem("user-info");
       if(!user){
